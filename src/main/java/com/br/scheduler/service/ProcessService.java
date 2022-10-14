@@ -15,8 +15,8 @@ public class ProcessService {
     @Autowired
     private ProcessRepository processRepository;
 
-    public Process save(Process process) {
-        return processRepository.save(process);
+    public void save(Process process) {
+        processRepository.save(process);
     }
 
     public List<Process> findAll() {
@@ -31,10 +31,10 @@ public class ProcessService {
         Random random = new Random();
 
         for (int i = 0; i < amount; i++) {
-            int randomMilli = random.nextInt(3000, 20000);
+            int randomMilli = random.nextInt(1000, 20000);
             String randomName = RandomNameGenerator.generate();
-
-            save(new Process(randomName, randomMilli));
+            String genericMessage = "Hi, I'm process " + randomName;
+            save(new Process(randomName, genericMessage, randomMilli));
         }
     }
 }

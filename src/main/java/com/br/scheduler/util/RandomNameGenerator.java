@@ -18,7 +18,7 @@ public class RandomNameGenerator {
             "chew",
             "loan",
             "tell",
-            "rape",
+            "make",
             "stay",
             "wall",
             "view",

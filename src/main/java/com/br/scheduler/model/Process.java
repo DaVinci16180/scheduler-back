@@ -10,12 +10,14 @@ public class Process implements Runnable {
     @SequenceGenerator(name="process_generator", sequenceName="process_seq", allocationSize=1)
     private long id;
     private String name;
+    private String message;
     private long millisLeftToProcess;
 
     public Process() {}
 
-    public Process(String name, long millisLeftToProcess) {
+    public Process(String name, String message, long millisLeftToProcess) {
         this.name = name;
+        this.message = message;
         this.millisLeftToProcess = millisLeftToProcess;
     }
 
@@ -23,16 +25,8 @@ public class Process implements Runnable {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public long getMillisLeftToProcess() {
@@ -44,6 +38,10 @@ public class Process implements Runnable {
             this.millisLeftToProcess = 0;
         else
             this.millisLeftToProcess = millisLeftToProcess;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public void run() {
