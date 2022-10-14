@@ -40,12 +40,6 @@ public class Heap {
         return pop;
     }
 
-    public Process peek() {
-        if (list.size() == 0) return null;
-
-        return list.get(0);
-    }
-
     private void ascend(int index) {
         int father = (index - 1) / 2;
 
@@ -76,19 +70,6 @@ public class Heap {
         }
     }
 
-    public void heapSort() {
-        int size = (list.size() - 1) / 2;
-
-        for (int i = size; i >= 0; i--) {
-            descend(i, size);
-        }
-
-        for (int i = 1; i <= list.size(); i++) {
-            switchPlaces(0, list.size() - i);
-            descend(0, list.size() - i);
-        }
-    }
-
     public void print() {
         int tabs = (int) Math.ceil(Math.log(list.size()));
         int i = 1;
@@ -114,7 +95,7 @@ public class Heap {
 
     private void printTabs(int tabs) {
         for (int i = 0; i < tabs; i++) {
-            System.out.print("   ");
+            System.out.print("     ");
         }
     }
 

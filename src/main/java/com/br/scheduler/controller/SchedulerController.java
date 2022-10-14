@@ -28,8 +28,7 @@ public class SchedulerController {
 
     @GetMapping("/executingNow")
     public Process getProcessExecutingNow() {
-        Heap heap = new Heap(processService.findAll());
-        return heap.peek();
+        return scheduler.getExecuting();
     }
 
     @GetMapping("/createProcesses")

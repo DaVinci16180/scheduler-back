@@ -2,31 +2,13 @@ package com.br.scheduler.model;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class Scheduler {
     Heap priorityQueue = new Heap();
-
-    public void addProcess(Process process) {
-        priorityQueue.add(process);
-        priorityQueue.print();
-    }
+    Process executing;
 
     public Process getNextProcess() {
         return priorityQueue.remove();
-    }
-
-    public Process peek() {
-        return priorityQueue.peek();
-    }
-
-    public int queueSize() {
-        return priorityQueue.size();
-    }
-
-    public List<Process> getPriorityList() {
-        return priorityQueue.getList();
     }
 
     public void updateHeap(Heap heap) {
@@ -35,5 +17,13 @@ public class Scheduler {
 
     public void print() {
         priorityQueue.print();
+    }
+
+    public Process getExecuting() {
+        return executing;
+    }
+
+    public void setExecuting(Process executing) {
+        this.executing = executing;
     }
 }

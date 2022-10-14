@@ -4,14 +4,10 @@ import com.br.scheduler.model.Heap;
 import com.br.scheduler.model.Process;
 import com.br.scheduler.model.Scheduler;
 import com.br.scheduler.service.ProcessService;
-import com.br.scheduler.util.RandomNameGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
 import java.util.concurrent.*;
 
 @Service
@@ -23,7 +19,7 @@ public class SchedulerScheduledService {
     @Autowired
     ProcessService processService;
 
-    @Scheduled(fixedRate = 3 * 1000)
+    @Scheduled(fixedRate = 100)
     public void process() {
         Process process = scheduler.getNextProcess();
 
@@ -34,6 +30,7 @@ public class SchedulerScheduledService {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<?> future = executor.submit(process);
+        scheduler.setExecuting(process);
 
         long startTime = System.currentTimeMillis();
         long endTime;
@@ -41,6 +38,7 @@ public class SchedulerScheduledService {
             System.out.print("Começou ... ");
             startTime = System.currentTimeMillis();
 
+            // await
             future.get(3000, TimeUnit.MILLISECONDS);
 
             endTime = System.currentTimeMillis();
@@ -59,6 +57,7 @@ public class SchedulerScheduledService {
             updateProcess(process, duration);
         } finally {
             executor.shutdownNow();
+            scheduler.setExecuting(null);
         }
     }
 
